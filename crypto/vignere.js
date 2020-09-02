@@ -1,7 +1,7 @@
 // MODULE VIGNERE CIPHER
 
 // Function trim: trimming whitespaces between message
-function trim (msg) {
+function trim(msg) {
     var trimmed = "";
     for (var i = 0; i < msg.length; i++) {
         if (msg.charAt(i) != ' ') {
@@ -13,14 +13,14 @@ function trim (msg) {
 }
 
 // Function encrypt: encrypting using standard Vignere Cipher
-function encrypt (plainText, key) {
+function encrypt(plainText, key) {
     var cipherText = "";
     for (var i = 0; i < plainText.length; i++) {
-        var ord = (plainText.charCodeAt(i) - 65) + (key.charCodeAt(i % (key.length)) - 65);
-        cipherText += ord.fromCharCode(0);
+        var ord = (plainText.charCodeAt(i) - 65) + (key.charCodeAt(i % key.length) - 65);
+        cipherText += String.fromCharCode(ord);
 
         // for each 5 characters, get spaced
-        if (i % 5 == 0) {
+        if (i % 5 == 0 && i > 0) {
             cipherText += " ";
         }
     }
@@ -29,12 +29,12 @@ function encrypt (plainText, key) {
 }
 
 // Function decrypt: decrypting using standard Vignere Cipher
-function decrypt (cipherText, key) {
+function decrypt(cipherText, key) {
     var ctext = trim(cipherText);
     var plainText = "";
     for (var i = 0; i < ctext.length; i++) {
-        var ord = (ctext.charCodeAt(i) - 65) - (key.charCodeAt(i % (key.length)) - 65);
-        plainText += ord.fromCharCode(0);
+        var ord = (ctext.charCodeAt(i) - 65) - (key.charCodeAt(i % key.length) - 65);
+        plainText += String.fromCharCode(ord);
     }
 
     return plainText;
