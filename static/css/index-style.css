@@ -1,0 +1,12 @@
+.c-button-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.c-button {
+    background-color: #000000;
+    margin: 10px;
+    text-decoration: none;
+    color: #ffffff;
+}
