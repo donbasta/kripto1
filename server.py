@@ -27,11 +27,13 @@ def view_vignere_result():
     msg = request.form["message"].upper()
     key = request.form["key"].upper()
 
+    print(msg)
+
     if request.form["act"] == "enc":
         result = classic.vignere.encrypt(msg, key)
     else:
         result = classic.vignere.decrypt(msg, key)
-    return render_template("vignere.html", result=result, inputtext=msg)
+    return render_template("vignere.html", result=result, inputtext=msg, key=key)
 
 
 

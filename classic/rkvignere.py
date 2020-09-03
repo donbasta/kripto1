@@ -6,7 +6,7 @@ def encrypt(plaintext, word):
     ciphertext = ""
     for i in range(len(plaintext)):
         c_val = chr(
-            ord(plaintext[i]) - ord('A') + ord(key[i % len(key)])
+            (ord(plaintext[i]) + ord(key[i % len(key)]) - 2 * ord('A')) % 26 + ord('A')
         )
         ciphertext += c_val
 
@@ -24,7 +24,7 @@ def decrypt(ciphertext, word):
         temp = ""
         for j in range(len(key)):
             c_val = chr(
-                ord(ciphertext[i+j]) - ord(key[j]) + ord('A')
+                (ord(ciphertext[i]) - ord(key[i % len(key)])) % 26 + ord('A')
             )
             plaintext += c_val
             temp += c_val

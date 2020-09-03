@@ -5,7 +5,7 @@ def encrypt(plaintext, key):
     ciphertext = ""
     for i in range(len(plaintext)):
         c_val = chr(
-            ord(plaintext[i]) - ord('A') + ord(key[i % len(key)])
+            (ord(plaintext[i]) + ord(key[i % len(key)]) - 2 * ord('A')) % 26 + ord('A')
         )
         ciphertext += c_val
 
@@ -20,7 +20,7 @@ def decrypt(ciphertext, key):
     plaintext = ""
     for i in range(len(ciphertext)):
         c_val = chr(
-            ord(ciphertext[i]) - ord(key[i % len(key)]) + ord('A')
+            (ord(ciphertext[i]) - ord(key[i % len(key)])) % 26 + ord('A')
         )
         plaintext += c_val
 
