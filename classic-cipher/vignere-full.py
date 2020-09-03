@@ -1,6 +1,4 @@
-// MODULE VIGNERE FULL CIPHER
-
-var vignereTable = [
+VIGNERE_TABLE = = [
     ['U', 'E', 'O', 'F', 'K', 'G', 'R', 'S', 'L', 'B', 'A', 'N', 'M', 'W', 'P', 'J', 'Y', 'V', 'C', 'Z', 'Q', 'H', 'D', 'T', 'I', 'X'],
     ['Q', 'M', 'S', 'N', 'V', 'E', 'P', 'J', 'D', 'K', 'X', 'T', 'W', 'A', 'I', 'C', 'U', 'H', 'Z', 'Y', 'F', 'O', 'G', 'B', 'L', 'R'],
     ['U', 'C', 'F', 'K', 'I', 'X', 'N', 'T', 'H', 'G', 'W', 'Y', 'O', 'V', 'R', 'Z', 'M', 'L', 'E', 'D', 'J', 'S', 'Q', 'A', 'P', 'B'],
@@ -27,56 +25,39 @@ var vignereTable = [
     ['T', 'Y', 'G', 'Z', 'K', 'E', 'S', 'B', 'X', 'V', 'Q', 'U', 'N', 'W', 'F', 'D', 'P', 'I', 'L', 'O', 'H', 'M', 'R', 'A', 'C', 'J'],
     ['A', 'M', 'C', 'U', 'Q', 'F', 'O', 'E', 'X', 'I', 'K', 'V', 'G', 'H', 'T', 'Y', 'R', 'P', 'Z', 'W', 'D', 'S', 'N', 'J', 'L', 'B'],
     ['I', 'Q', 'V', 'R', 'O', 'P', 'K', 'L', 'S', 'G', 'N', 'F', 'X', 'Y', 'W', 'H', 'B', 'A', 'M', 'E', 'U', 'D', 'C', 'T', 'Z', 'J']
-];
+]
 
-// Function trim: trimming whitespaces between message
-function trim(msg) {
-    var trimmed = "";
-    for (var i = 0; i < msg.length; i++) {
-        if (msg.charAt(i) != ' ') {
-            trimmed += msg.charAt(i);
-        }
-    }
+def encrypt(plaintext, key):
+'''
+For encrypting plaintext with Full Vignere Cipher
+'''
+    ciphertext = ""
+    for i in range(len(plaintext)):
+        col = ord(plaintext[i]) - ord('A')
+        row = ord(key[i % len(key)]) - ord('A')
+        ciphertext += VIGNERE_TABLE[row][col]
 
-    return trimmed;
-}
+        if i % 5 == 0 and i > 0:
+            ciphertext += ' ' 
 
-// Function encrypt: encrypting using Full Vignere Cipher
-function encrypt(plainText, key) {
-    var cipherText = "";
-    for (var i = 0; i < plainText.length; i++) {
-        var col = (plainText.charCodeAt(i) - 65) 
-        var row = (key.charCodeAt(i % key.length) - 65);
-        cipherText += vignereTable[row][col];
+    return ciphertext
 
-        // for each 5 characters, get spaced
-        if (i % 5 == 0 && i > 0) {
-            cipherText += " ";
-        }
-    }
 
-    return cipherText;
-}
+def decrypt(ciphertext, key):
+'''
+For decrypting plaintext with Full Vignere Cipher
+'''
+    plaintext = ""
+    for i in range(len(ciphertext)):
+        target = ord(ciphertext[i]) - ord('A')
+        row = ord(key[i % len(key)]) - ord('A')
+        c_val = ord('A')
 
-// Function decrypt: decrypting using Full Vignere Cipher
-function decrypt(cipherText, key) {
-    var ctext = trim(cipherText);
-    var plainText = "";
-    for (var i = 0; i < ctext.length; i++) {
-        var target = (ctext.charCodeAt(i) - 65);
-        var row = (key.charCodeAt(i % key.length) - 65);
-        var char;
-        for (var i = 0; i < vignereTable[row].length; i++) {
-            if (vignereTable[row][i] == target) {
-                char = i;
-                break;
-            }
-        }
-        plainText += char;
-    }
+        for i in range(len(VIGNERE_TABLE[row])):
+            if VIGNERE_TABLE[row][i] == target:
+                c_val += i
+                break
 
-    return plainText;
-}
+        plaintext += chr(c_val)
 
-module.exports.encrypt = encrypt;
-module.exports.decrypt = decrypt;
+    return plaintext
