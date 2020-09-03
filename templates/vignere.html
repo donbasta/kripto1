@@ -2,7 +2,8 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Simple Crypto App</title>
-        <link rel="stylesheet" type="text/css" href="../static/css/index-style.css">
+        <link rel="stylesheet" type="text/css" href="../static/css/pager-style.css">
+        <script src="../static/js/script.js"></script>
     </head>
 
     <body>
@@ -11,6 +12,49 @@
 
         <h2>{{ message }}</h2>>
         
+        <!-- Form part-->
+        <form action="{{ url_for('view_vignere_result') }}" method="post" enctype="multipart/form-data" id="upload">
+            <div class="input-wrapper">
+                <div class="check-wrapper">
+                    <h4 class="label">Select the action</h4>
+                    <input type="radio" id="enc" name="act" value="enc" checked>
+                    <label for="enc">Encrypt</label><br>
+                    <input type="radio" id="dec" name="act" value="dec">
+                    <label for="dec">Decrypt</label><br>
+                    
+                    <h4 class="label">Select the format (only for encryption)</h4>
+                    <input type="radio" id="original" name="format" value="ori" checked>
+                    <label for="original">Original</label><br>
+                    <input type="radio" id="block" name="format" value="block">
+                    <label for="block">Blocked 5 letters</label><br>
+                    
+                    <h4 class="label">Input key</h4>
+                    <input type="text" name="key">
+                </div>
+                <div class="text-wrapper">
+                    <div class="txtarea-wrapper">
+                        <h4 class="label">Input your text</h4>
+                        <textarea name="message" rows="10" cols="30">{{ inputtext }}</textarea>
+                    </div>
+                    <div class="txtarea-wrapper">
+                        <h4 class="label">Result</h4>
+                        <textarea rows="10" cols="30" readonly>{{ result }}</textarea>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="button-wrapper">
+            <div>
+                <button class="submit-button" value="Upload" onclick="submitAll()"><span>Submit</span></button>
+            </div>
+            <button class="back-button">  
+                <a href="{{ url_for('landing') }}">
+                    <div class='c-button'>Back to Menu</div>
+                </a>
+            </button>
+        </div>
+
     </body>
 
 </html>
