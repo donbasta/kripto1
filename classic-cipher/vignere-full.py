@@ -1,4 +1,4 @@
-VIGNERE_TABLE = = [
+VIGNERE_TABLE = [
     ['U', 'E', 'O', 'F', 'K', 'G', 'R', 'S', 'L', 'B', 'A', 'N', 'M', 'W', 'P', 'J', 'Y', 'V', 'C', 'Z', 'Q', 'H', 'D', 'T', 'I', 'X'],
     ['Q', 'M', 'S', 'N', 'V', 'E', 'P', 'J', 'D', 'K', 'X', 'T', 'W', 'A', 'I', 'C', 'U', 'H', 'Z', 'Y', 'F', 'O', 'G', 'B', 'L', 'R'],
     ['U', 'C', 'F', 'K', 'I', 'X', 'N', 'T', 'H', 'G', 'W', 'Y', 'O', 'V', 'R', 'Z', 'M', 'L', 'E', 'D', 'J', 'S', 'Q', 'A', 'P', 'B'],
@@ -49,13 +49,12 @@ For decrypting plaintext with Full Vignere Cipher
 '''
     plaintext = ""
     for i in range(len(ciphertext)):
-        target = ord(ciphertext[i]) - ord('A')
         row = ord(key[i % len(key)]) - ord('A')
         c_val = ord('A')
 
-        for i in range(len(VIGNERE_TABLE[row])):
-            if VIGNERE_TABLE[row][i] == target:
-                c_val += i
+        for j in range(len(VIGNERE_TABLE[row])):
+            if VIGNERE_TABLE[row][j] == ciphertext[i]:
+                c_val += j
                 break
 
         plaintext += chr(c_val)
