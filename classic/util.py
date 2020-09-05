@@ -1,6 +1,6 @@
 def blockify(text):
     '''
-    Mengembalikan teks yang diblok menjadi 5 huruf
+    Return blocked text in 5 letters each
     '''
     blocked_text = ""
     for i in range(len(text)):
@@ -13,6 +13,6 @@ def blockify(text):
 
 def alphabetify(text):
     '''
-    Mengembalikan teks dengan semua tandabaca dan spasi dihilangkan, hanya 26 huruf alfabet saja
+    Return text with only capitalized alphabet
     '''
     return ''.join(c for c in text if c.isalpha()).upper()

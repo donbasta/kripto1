@@ -1,5 +1,8 @@
 def parse_path(text):
-    text = text[1:]
+    '''
+    Parsing path to return the path and filename
+    '''
+    exc_text = text[1:]
     name = len(text)-1
     ext = len(text)-1
 
