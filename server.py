@@ -10,7 +10,7 @@ app.config['UPLOAD_FOLDER'] = './processed-files'
 '''
 Notes:
 1. Untuk semua module, import classic.<nama>
-2. Sebelum olah akses input dari user, jangan lupa dikapitalkan dulu dengan .upper()
+2. Sebelum olah akses input dari user, jangan lupa olah menggunakan classic.util
 3. Akses input teks dari user di request.form["message"]
 '''
 
