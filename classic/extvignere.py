@@ -2,20 +2,22 @@ def parse_path(text):
     '''
     Parsing path to return the path and filename
     '''
-    exc_text = text[1:]
-    name = len(text)-1
-    ext = len(text)-1
-
-    if '.' in text:
-        while text[ext] != '.':
-            ext -= 1
-        text = text[:ext]
-
-    while text[name] != '/' and text[name] != '\\':
-        name -= 1
+    text = text.replace('\\', '/')
+    names = text.split('/')
+    print(names)
+    trail = names[len(names)-1].split('.')
     
-    return '.' + text[:name], text[name:]
+    if len(trail) > 0:
+        namefile = trail[0]
+    else:
+        namefile = names[len(names)-1]
 
+    path = ""
+
+    for i in range(len(names)-1):
+        path += names[i] + '/'
+
+    return path, namefile
 
 def encrypt(text, key, is_file=False):
     '''

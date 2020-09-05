@@ -43,10 +43,10 @@ def view_vignere_result():
 
 @app.route('/extvignere', methods=['POST'])
 def view_extvignere_result():
-    key = request.form["key"].upper()
+    key = request.form["key"]
     
     if request.form["type-inp"] == "txt":
-        msg = request.form["message"].upper()
+        msg = request.form["message"]
 
         if request.form["act"] == "enc":
             result = classic.extvignere.encrypt(msg, key)
