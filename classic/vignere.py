@@ -16,7 +16,6 @@ def decrypt(ciphertext, key):
     '''
     For decrypting plaintext with Vignere Cipher
     '''
-    ciphertext = ciphertext.replace(" ", "")
     plaintext = ""
     for i in range(len(ciphertext)):
         c_val = chr(

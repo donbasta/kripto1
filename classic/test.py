@@ -1,6 +1,4 @@
-import vignere
 
-pt = "OJANOJANOJAN"
-k = "DAME"
+data = open("../processed-files/cp.cpp", 'rb').read()
 
-print(vignere.encrypt(pt, k))
+print(type(data))
