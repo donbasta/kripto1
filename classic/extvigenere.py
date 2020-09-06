@@ -21,7 +21,7 @@ def parse_path(text):
 
 def encrypt(text, key, is_file=False):
     '''
-    For encrypting text/file with Extended Vignere Cipher
+    For encrypting text/file with Extended vigenere Cipher
     '''
     if is_file:
         # Get path, filename, and extension
@@ -59,7 +59,7 @@ def encrypt(text, key, is_file=False):
 
 def decrypt(text, key, is_file=False):
     '''
-    For decrypting text with Extended Vignere Cipher
+    For decrypting text with Extended vigenere Cipher
     '''
 
     if is_file:

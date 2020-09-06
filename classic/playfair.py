@@ -22,7 +22,6 @@ def generate_matrix(key):
         if i % 5 == 4:
             mat.append(row)
             row = []
-            row.append(keyword[i])
     
     return mat
 
@@ -94,7 +93,6 @@ def encrypt(plaintext, key):
                 bigram += plaintext[i]
                 i += 1
         
-        print(bigram)
         ciphertext += find_enc_pair(bigram, mat)
         bigram = ""
 

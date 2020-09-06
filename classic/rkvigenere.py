@@ -17,14 +17,13 @@ def decrypt(ciphertext, word):
     '''
     For decrypting plaintext with Running Key Vignere Cipher
     '''
-    ciphertext = ciphertext.replace(" ", "")
     plaintext = ""
     key = word
     for i in range(0, len(ciphertext), len(word)):
         temp = ""
         for j in range(len(key)):
             c_val = chr(
-                (ord(ciphertext[i]) - ord(key[i % len(key)])) % 26 + ord('A')
+                (ord(ciphertext[i+j]) - ord(key[j % len(key)])) % 26 + ord('A')
             )
             plaintext += c_val
             temp += c_val
