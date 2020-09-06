@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, send_file
 import classic.vigenere, classic.fullvigenere, classic.rkvigenere, classic.extvigenere, classic.playfair, classic.util
+import classic.affine, classic.enigma, classic.hill, classic.super_encryption
 import os
 
 app = Flask(__name__)
