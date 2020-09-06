@@ -118,6 +118,26 @@ def view_playfair_result():
     
     return render_template("playfair.html", result=result, inputtext=msg, key=key)
 
+@app.route('/superenc', methods=['POST'])
+def view_superenc_result():
+    #TODO
+    pass
+
+@app.route('/affine', methods=['POST'])
+def view_affine_result():
+    #TODO
+    pass
+
+@app.route('/hill', methods=['POST'])
+def view_hill_result():
+    #TODO
+    pass
+
+@app.route('/enigma', methods=['POST'])
+def view_enigma_result():
+    #TODO
+    pass
+
 
 # Entry point
 if __name__ == '__main__':

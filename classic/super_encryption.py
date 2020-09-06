@@ -1,5 +1,5 @@
 
-import vigenere
+import classic.vigenere
 
 def encrypt(plaintext, key_col, key_vigenere):
     '''
