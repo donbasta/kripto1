@@ -3,6 +3,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Simple Crypto App</title>
         <link rel="stylesheet" type="text/css" href="../static/css/pager-style.css">
+        <script src="../static/js/script.js"></script>
     </head>
 
     <body>
@@ -12,7 +13,8 @@
             </div>
             <div class="subtitle-bar">
                 an encryption method, works by transforming each
-                character using a linear function, computed modulo 26
+                character c in the text using a linear function (c -> mc + b), with m and b are
+                constants acting as key
             </div>
         </div>
 
@@ -37,8 +39,13 @@
 
                     <!-- TODO: add verification if inverse exist-->
                     <div class="check-action-wrapper">
-                        <h4 class="label"> Input Key</h4>
-                        <input type="text" name="key" value="{{ key }}">
+                        <h4 class="label"> Input Key m</h4>
+                        <input type="text" name="key_m" value="{{ key_m }}">
+                    </div>
+
+                    <div class="check-action-wrapper">
+                        <h4 class="label"> Input Key b</h4>
+                        <input type="text" name="key_b" value="{{ key_b }}">
                     </div>
                 </div>
 
