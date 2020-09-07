@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, send_file
 import classic.vigenere, classic.fullvigenere, classic.rkvigenere, classic.extvigenere, classic.playfair, classic.util
-import classic.affine, classic.enigma, classic.hill, classic.super_encryption
+import classic.affine, classic.enigma, classic.hill, classic.superenc
 import os
 
 app = Flask(__name__)
@@ -121,7 +121,20 @@ def view_playfair_result():
 @app.route('/superenc', methods=['POST'])
 def view_superenc_result():
     #TODO
-    pass
+    msg = classic.util.alphabetify(request.form["message"])
+    key_vigenere = request.form["key_vigenere"]
+    key_transposition = int(request.form["key_transposition"])
+
+    if request.form["act"] == "enc":
+        result = classic.superenc.encrypt(msg, key_transposition, key_vigenere)
+    else:
+        result = classic.superenc.decrypt(msg, key_transposition, key_vigenere)
+    
+    if request.form["format"] == "block":
+        result = classic.util.blockify(result)
+
+    return render_template("superenc.html", result=result, inputtext=msg, key_transposition=key_transposition, key_vigenere=key_vigenere)
+
 
 @app.route('/affine', methods=['POST'])
 def view_affine_result():

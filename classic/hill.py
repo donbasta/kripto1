@@ -19,14 +19,6 @@ def multiply_matrix(r, s, mod=ALPHABET_SIZE):
   r is an 3x3 matrix, s is an 3x1 matrix, returns their multiplication
   '''
   product = []
-  # for i in range(size):
-  #   current_val = 0
-  #   for j in range(size):
-  #     current_val += r[i][j] * s[j]
-  #   current_val %= mod
-  #   product.append(current_val)
-  # return product
-
   for i in range(len(r)):
     temp = []
     for j in range(len(s[0])):
@@ -36,8 +28,6 @@ def multiply_matrix(r, s, mod=ALPHABET_SIZE):
       temp.append(cur)
     product.append(temp)
   return product
-
-
 
 def transpose_matrix(r, size=3):
   '''
@@ -122,7 +112,7 @@ def decrypt(ciphertext, K):
 
 if __name__ == '__main__':
   '''
-  For testing functions
+  For testing purposes
   '''
 
   #Testing inverse -- done
