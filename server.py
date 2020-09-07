@@ -139,7 +139,19 @@ def view_superenc_result():
 @app.route('/affine', methods=['POST'])
 def view_affine_result():
     #TODO
-    pass
+    msg = classic.util.alphabetify(request.form["message"])
+    key_m = int(request.form["key_m"])
+    key_b = int(request.form["key_b"])
+
+    if request.form["act"] == "enc":
+        result = classic.affine.encrypt(msg, key_m, key_b)
+    else:
+        result = classic.affine.decrypt(msg, key_m, key_b)
+    
+    if request.form["format"] == "block":
+        result = classic.util.blockify(result)
+
+    return render_template("affine.html", result=result, inputtext=msg, key_m=key_m, key_b=key_b)
 
 @app.route('/hill', methods=['POST'])
 def view_hill_result():
