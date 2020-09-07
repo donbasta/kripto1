@@ -40,7 +40,15 @@ def view_vigenere_result():
     if request.form["format"] == "block":
             result = classic.util.blockify(result)
     
+    if request.form["type-out"] == "file":
+        f_path = app.config['UPLOAD_FOLDER'] + "/" + request.form["act"] + ".txt"
+        f = open(f_path, "w")
+        f.write(result)
+        f.close()
+        return send_file(f_path, as_attachment=True)
+    
     return render_template("vigenere.html", result=result, inputtext=msg, key=key)
+
 
 @app.route('/fullvigenere', methods=['POST'])
 def view_fullvigenere_result():
@@ -55,7 +63,15 @@ def view_fullvigenere_result():
     if request.form["format"] == "block":
             result = classic.util.blockify(result)
     
+    if request.form["type-out"] == "file":
+        f_path = app.config['UPLOAD_FOLDER'] + "/" + request.form["act"] + ".txt"
+        f = open(f_path, "w")
+        f.write(result)
+        f.close()
+        return send_file(f_path, as_attachment=True)
+    
     return render_template("fullvigenere.html", result=result, inputtext=msg, key=key)
+
 
 @app.route('/rkvigenere', methods=['POST'])
 def view_rkvigenere_result():
@@ -70,7 +86,15 @@ def view_rkvigenere_result():
     if request.form["format"] == "block":
             result = classic.util.blockify(result)
     
+    if request.form["type-out"] == "file":
+        f_path = app.config['UPLOAD_FOLDER'] + "/" + request.form["act"] + ".txt"
+        f = open(f_path, "w")
+        f.write(result)
+        f.close()
+        return send_file(f_path, as_attachment=True)
+    
     return render_template("rkvigenere.html", result=result, inputtext=msg, key=key)
+
 
 @app.route('/extvigenere', methods=['POST'])
 def view_extvigenere_result():
@@ -86,6 +110,13 @@ def view_extvigenere_result():
         
         if request.form["format"] == "block":
             result = classic.util.blockify(result)
+        
+        if request.form["type-out"] == "file":
+            f_path = app.config['UPLOAD_FOLDER'] + "/" + request.form["act"] + ".txt"
+            f = open(f_path, "w")
+            f.write(result)
+            f.close()
+            return send_file(f_path, as_attachment=True)
         
         return render_template("extvigenere.html", result=result, inputtext=msg, key=key)
 
@@ -116,13 +147,21 @@ def view_playfair_result():
     if request.form["format"] == "block":
             result = classic.util.blockify(result)
     
+    if request.form["type-out"] == "file":
+        f_path = app.config['UPLOAD_FOLDER'] + "/" + request.form["act"] + ".txt"
+        f = open(f_path, "w")
+        f.write(result)
+        f.close()
+        return send_file(f_path, as_attachment=True)
+    
     return render_template("playfair.html", result=result, inputtext=msg, key=key)
+
 
 @app.route('/superenc', methods=['POST'])
 def view_superenc_result():
     #TODO
     msg = classic.util.alphabetify(request.form["message"])
-    key_vigenere = request.form["key_vigenere"]
+    key_vigenere = classic.util.alphabetify(request.form["key_vigenere"])
     key_transposition = int(request.form["key_transposition"])
 
     if request.form["act"] == "enc":
@@ -132,6 +171,13 @@ def view_superenc_result():
     
     if request.form["format"] == "block":
         result = classic.util.blockify(result)
+    
+    if request.form["type-out"] == "file":
+        f_path = app.config['UPLOAD_FOLDER'] + "/" + request.form["act"] + ".txt"
+        f = open(f_path, "w")
+        f.write(result)
+        f.close()
+        return send_file(f_path, as_attachment=True)
 
     return render_template("superenc.html", result=result, inputtext=msg, key_transposition=key_transposition, key_vigenere=key_vigenere)
 
@@ -150,6 +196,13 @@ def view_affine_result():
     
     if request.form["format"] == "block":
         result = classic.util.blockify(result)
+    
+    if request.form["type-out"] == "file":
+        f_path = app.config['UPLOAD_FOLDER'] + "/" + request.form["act"] + ".txt"
+        f = open(f_path, "w")
+        f.write(result)
+        f.close()
+        return send_file(f_path, as_attachment=True)
 
     return render_template("affine.html", result=result, inputtext=msg, key_m=key_m, key_b=key_b)
 

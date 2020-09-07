@@ -21,12 +21,14 @@ def decrypt(ciphertext, word):
     key = word
     for i in range(0, len(ciphertext), len(word)):
         temp = ""
-        for j in range(len(key)):
+        j = 0
+        while j < len(key) and i + j < len(ciphertext):
             c_val = chr(
                 (ord(ciphertext[i+j]) - ord(key[j % len(key)])) % 26 + ord('A')
             )
             plaintext += c_val
             temp += c_val
+            j += 1
         key = temp
 
     return plaintext

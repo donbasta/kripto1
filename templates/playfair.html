@@ -24,12 +24,22 @@
             <!-- Input wrapper -->
             <div class="input-wrapper container-col">
                 <div class="check-wrapper">
-                    <div class="check-action-wrapper">
-                        <h4 class="label">Select the action</h4>
-                        <input type="radio" id="enc" name="act" value="enc" checked>
-                        <label for="enc">Encrypt</label><br>
-                        <input type="radio" id="dec" name="act" value="dec">
-                        <label for="dec">Decrypt</label><br>
+                    <div class="container-row">
+                        <div class="check-action-wrapper">
+                            <h4 class="label">Select the action</h4>
+                            <input type="radio" id="enc" name="act" value="enc" checked>
+                            <label for="enc">Encrypt</label><br>
+                            <input type="radio" id="dec" name="act" value="dec">
+                            <label for="dec">Decrypt</label><br>
+                        </div>
+    
+                        <div class="check-action-wrapper">
+                            <h4 class="label">Select output type)</h4>
+                            <input type="radio" id="txt" name="type-out" value="txt" checked>
+                            <label for="txt">Text</label><br>
+                            <input type="radio" id="fil" name="type-out" value="file">
+                            <label for="fil">File</label><br>
+                        </div>
                     </div>
                     
                     <div class="check-action-wrapper">
