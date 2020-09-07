@@ -93,9 +93,9 @@ def encrypt(plaintext, K, mod=ALPHABET_SIZE, size=3):
   '''
   ciphertext = ""
   for i in range(0, len(plaintext), 3):
-    get_slice_matrix = [[ord(plaintext[i + j]) - ord('a')] for j in range(size)]
+    get_slice_matrix = [[ord(plaintext[i + j]) - ord('A')] for j in range(size)]
     get_slice_cipher = reduce_matrix(multiply_matrix(K, get_slice_matrix))
-    slice_cipher = [chr(get_slice_cipher[i][0] + ord('a')) for i in range(size)]
+    slice_cipher = [chr(get_slice_cipher[j][0] + ord('A')) for j in range(size)]
     # print(slice_cipher)
     slice_cipher_string = ''.join(slice_cipher)
     ciphertext = ''.join([ciphertext, slice_cipher_string])

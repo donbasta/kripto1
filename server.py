@@ -209,6 +209,31 @@ def view_affine_result():
 @app.route('/hill', methods=['POST'])
 def view_hill_result():
     #TODO
+    msg = classic.util.alphabetify(request.form["message"])
+    # msg = request.form["message"]
+    key_0 = request.form["key_0"]
+    key_1 = request.form["key_1"]
+    key_2 = request.form["key_2"]
+    key_matrix = [list(map(int, request.form[f"key_{i}"].split(','))) for i in range(3)]
+    print(key_matrix)
+
+    if request.form["act"] == "enc":
+        result = classic.hill.encrypt(msg, key_matrix)
+    else:
+        result = classic.hill.decrypt(msg, key_matrix)
+    
+    if request.form["format"] == "block":
+        result = classic.util.blockify(result)
+    
+    if request.form["type-out"] == "file":
+        f_path = app.config['UPLOAD_FOLDER'] + "/" + request.form["act"] + ".txt"
+        f = open(f_path, "w")
+        f.write(result)
+        f.close()
+        return send_file(f_path, as_attachment=True)
+
+    return render_template("hill.html", result=result, inputtext=msg, key_0=key_0, key_1=key_1, key_2=key_2)
+
     pass
 
 @app.route('/enigma', methods=['POST'])
