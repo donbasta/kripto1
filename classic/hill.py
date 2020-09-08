@@ -92,7 +92,7 @@ def encrypt(plaintext, K, mod=ALPHABET_SIZE, size=3):
   For encrypting plaintext with Hill Cipher
   '''
   ciphertext = ""
-  for i in range(0, len(plaintext), 3):
+  for i in range(0, len(plaintext), size):
     get_slice_matrix = [[ord(plaintext[i + j]) - ord('A')] for j in range(size)]
     get_slice_cipher = reduce_matrix(multiply_matrix(K, get_slice_matrix))
     slice_cipher = [chr(get_slice_cipher[j][0] + ord('A')) for j in range(size)]
@@ -101,7 +101,7 @@ def encrypt(plaintext, K, mod=ALPHABET_SIZE, size=3):
     ciphertext = ''.join([ciphertext, slice_cipher_string])
   return ciphertext
 
-def decrypt(ciphertext, K):
+def decrypt(ciphertext, K, mod=ALPHABET_SIZE, size=3):
   '''
   For decrypting plaintext with Hill Cipher
   '''
