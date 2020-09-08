@@ -20,9 +20,6 @@ alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 def next_alphabet(a):
   return chr(((ord(a) - ord('A') + 1) % 26) + ord('A'))
 
-def get_index(a):
-  return ord(a) - ord('A')
-
 def shift_caesar(word, num_shift):
   '''
   Shift each letter in the word alphabetically
@@ -51,18 +48,19 @@ def encrypt(plaintext, rotor_index, reflector, plugboard, ring, position):
     ring config, and initial letter position
     '''
     reflector = reflectors[reflector]
-    rotor_used = ['' for i in range(3)]
-    rotor_notch = ['' for i in range(3)]
-    rotor_letter = ['' for i in range(3)]
-    offset_rotor = [0 for i in range(3)]
+    rotor_used = []
+    rotor_notch = []
+    rotor_letter = []
+    offset_rotor = []
 
     for i in range(3):
-      rotor_used[i] = rotors[rotor_index[i]]
-      rotor_notch[i] = rotors_notch[rotor_index[i]]
-      rotor_letter[i] = position[i]
-      offset_rotor[i] = ord(ring[i]) - ord('A')
-      rotor_used[i] = shift_caesar(rotor_used[i], offset_rotor[i])
-      rotor_used[i] = shift_permutation(rotor_used[i], offset_rotor[i])
+      new_rotor = rotors[rotor_index[i]]
+      rotor_notch.append(rotors_notch[rotor_index[i]])
+      rotor_letter.append(position[i])
+      offset_rotor.append(alphabet.index(ring[i]))
+      new_rotor = shift_caesar(new_rotor, offset_rotor[i])
+      new_rotor = shift_permutation(new_rotor, offset_rotor[i])
+      rotor_used.append(new_rotor)
 
     ciphertext = ""
 
@@ -102,34 +100,26 @@ def encrypt(plaintext, rotor_index, reflector, plugboard, ring, position):
       #Letter enters the plugboard
       encrypted_letter = plugboard_dict[encrypted_letter]
 
-      current_offset = [get_index(rotor_letter[i]) for i in range(3)]
+      current_offset = [alphabet.index(rotor_letter[i]) for i in range(3)]
 
       # print(encrypted_letter)
 
       #Letter enters the rotors (2,1,0)
       for i in range(2, -1, -1):
-        # print(i, "lol")
-        current_pos = get_index(encrypted_letter)
+        current_pos = alphabet.index(encrypted_letter)
         enc = rotor_used[i][(current_offset[i] + current_pos) % 26]
-        new_pos = get_index(enc)
+        new_pos = alphabet.index(enc)
         encrypted_letter = alphabet[(new_pos - current_offset[i] + 26) % 26]
-        # print(new_pos, enc, current_offset[i], rotor_used[i])
-        # print(encrypted_letter)
       
       #Letter enters the reflector
-      encrypted_letter = reflector[get_index(encrypted_letter)]
-      # print(encrypted_letter, "LOL")
+      encrypted_letter = reflector[alphabet.index(encrypted_letter)]
 
       #Letter enters the rotors again (0,1,2)
       for i in range(3):
-        current_pos = get_index(encrypted_letter)
-        # print(rotor_used[i], current_offset[i], current_pos, "hehehe")
+        current_pos = alphabet.index(encrypted_letter)
         enc = alphabet[(current_offset[i] + current_pos) % 26]
-        # print(enc, "yah")
         new_pos = rotor_used[i].index(enc)
         encrypted_letter = alphabet[(new_pos - current_offset[i] + 26) % 26]
-        # print(new_pos, enc, current_offset[i], rotor_used[i])
-        # print(encrypted_letter)
 
       #Letter enters the plugboard again
       encrypted_letter = plugboard_dict[encrypted_letter]
@@ -145,22 +135,11 @@ def decrypt(ciphertext, rotor_index, reflector, plugboard, ring, position):
     '''
     return encrypt(ciphertext, rotor_index, reflector, plugboard, ring, position)
 
-def test_shift():
-  '''
-  Test Shift function
-  '''
-  permutations = ['qwertyuiopasdfghjklzxcvbnm', 'abcdefghijklmnopqrstuvwxyz']
-  shifts = [2,4,5,6]
-  for i in permutations:
-    for j in shifts:
-      print(shift_permutation(i, j))
-
 def test():
   '''
   For testing purposes
   '''
   plaintexts = ["holaa", "kepalaPUndaKluTutKakilututKaKi", "peManasaNGlobal"]
-  # plaintexts = ["h"]
 
   rotor_index = ['IV', 'V', 'III']
   reflector = 'UKW-B'
@@ -177,5 +156,4 @@ def test():
 
 
 if __name__ == '__main__':
-  # test_shift()
   test()

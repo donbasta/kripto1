@@ -184,7 +184,6 @@ def view_superenc_result():
 
 @app.route('/affine', methods=['POST'])
 def view_affine_result():
-    #TODO
     msg = classic.util.alphabetify(request.form["message"])
     key_m = int(request.form["key_m"])
     key_b = int(request.form["key_b"])
@@ -208,9 +207,7 @@ def view_affine_result():
 
 @app.route('/hill', methods=['POST'])
 def view_hill_result():
-    #TODO
     msg = classic.util.alphabetify(request.form["message"])
-    # msg = request.form["message"]
     key_0 = request.form["key_0"]
     key_1 = request.form["key_1"]
     key_2 = request.form["key_2"]
@@ -234,11 +231,10 @@ def view_hill_result():
 
     return render_template("hill.html", result=result, inputtext=msg, key_0=key_0, key_1=key_1, key_2=key_2)
 
-    pass
-
 @app.route('/enigma', methods=['POST'])
 def view_enigma_result():
     #TODO
+    print(request.form["rotor-1"], "debug")
     pass
 
 
