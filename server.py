@@ -212,7 +212,6 @@ def view_hill_result():
     key_1 = request.form["key_1"]
     key_2 = request.form["key_2"]
     key_matrix = [list(map(int, request.form[f"key_{i}"].split(','))) for i in range(3)]
-    print(key_matrix)
 
     if request.form["act"] == "enc":
         result = classic.hill.encrypt(msg, key_matrix)
@@ -233,8 +232,29 @@ def view_hill_result():
 
 @app.route('/enigma', methods=['POST'])
 def view_enigma_result():
-    #TODO
-    print(request.form["rotor-1"], "debug")
+    msg = classic.util.alphabetify(request.form["message"])
+    rotors = [request.form["rotor-1"], request.form["rotor-2"], request.form["rotor-3"]]
+    reflector = request.form["reflector"]
+    plugboard = request.form["plugboard"]
+    ring = request.form["ring"]
+    position = request.form["position"]
+
+    if request.form["act"] == "enc":
+        result = classic.enigma.encrypt(msg, rotors, reflector, plugboard, ring, position)
+    else:
+        result = classic.enigma.decrypt(msg, rotors, reflector, plugboard, ring, position)
+    
+    if request.form["format"] == "block":
+        result = classic.util.blockify(result)
+    
+    if request.form["type-out"] == "file":
+        f_path = app.config['UPLOAD_FOLDER'] + "/" + request.form["act"] + ".txt"
+        f = open(f_path, "w")
+        f.write(result)
+        f.close()
+        return send_file(f_path, as_attachment=True)
+
+    return render_template("enigma.html", result=result, inputtext=msg)
     pass
 
 
