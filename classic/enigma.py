@@ -34,7 +34,6 @@ def shift_permutation(permutation, num_shift):
   '''
   Shift a permutation by a number
   '''
-  #TODO
   if num_shift == 0:
     return permutation
   permutation_length = len(permutation)

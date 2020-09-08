@@ -20,7 +20,7 @@ def inverse(m, mod=ALPHABET_SIZE):
     '''
     if(math.gcd(m, mod) > 1):
         #can't find inverse
-        pass
+        return -1
     m = m % mod
     if m == 1:
         return m

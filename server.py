@@ -239,7 +239,7 @@ def view_hill_result():
 @app.route('/enigma', methods=['POST'])
 def view_enigma_result():
     msg = classic.util.alphabetify(request.form["message"])
-    rotors = [request.form["rotor-1"], request.form["rotor-2"], request.form["rotor-3"]]
+    rotors = [request.form[f"rotor_{i}"] for i in range(1,4)]
     reflector = request.form["reflector"]
     plugboard = request.form["plugboard"]
     ring = request.form["ring"]
@@ -260,7 +260,7 @@ def view_enigma_result():
         f.close()
         return send_file(f_path, as_attachment=True)
 
-    return render_template("enigma.html", result=result, inputtext=msg)
+    return render_template("enigma.html", result=result, inputtext=msg, reflector=reflector, plugboard=plugboard, position=position, ring=ring, rotor_1=rotors[0], rotor_2=rotors[1], rotor_3=rotors[2])
     pass
 
 
