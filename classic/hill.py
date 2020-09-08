@@ -8,6 +8,7 @@ def inverse(m, mod=ALPHABET_SIZE):
     '''
     if(math.gcd(m, mod) > 1):
         #can't find inverse
+        return -1
         pass
     m = m % mod
     if m == 1:

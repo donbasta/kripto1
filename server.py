@@ -212,6 +212,12 @@ def view_hill_result():
     key_1 = request.form["key_1"]
     key_2 = request.form["key_2"]
     key_matrix = [list(map(int, request.form[f"key_{i}"].split(','))) for i in range(3)]
+    validation_msg = ""
+
+    check_determinant = classic.hill.determinant_matrix(key_matrix)
+    if(classic.hill.inverse(check_determinant, 26) == -1):
+        validation_msg = "Can't use this matrix as key, because it doesn't have inverse in modulo 26!"
+        return render_template("hill.html", inputtext=msg, key_0=key_0, key_1=key_1, key_2=key_2, validate=validation_msg)
 
     if request.form["act"] == "enc":
         result = classic.hill.encrypt(msg, key_matrix)
@@ -228,7 +234,7 @@ def view_hill_result():
         f.close()
         return send_file(f_path, as_attachment=True)
 
-    return render_template("hill.html", result=result, inputtext=msg, key_0=key_0, key_1=key_1, key_2=key_2)
+    return render_template("hill.html", result=result, inputtext=msg, key_0=key_0, key_1=key_1, key_2=key_2, validate=validation_msg)
 
 @app.route('/enigma', methods=['POST'])
 def view_enigma_result():
