@@ -92,6 +92,9 @@ def encrypt(plaintext, K, mod=ALPHABET_SIZE, size=3):
   '''
   For encrypting plaintext with Hill Cipher
   '''
+  PAD = 'Z'
+  while len(plaintext) % 3 != 0:
+    plaintext += PAD
   ciphertext = ""
   for i in range(0, len(plaintext), size):
     get_slice_matrix = [[ord(plaintext[i + j]) - ord('A')] for j in range(size)]
