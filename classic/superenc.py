@@ -1,11 +1,15 @@
 
 import classic.vigenere
 
+SPECIAL_CHAR = 'Z'
+
 def encrypt(plaintext, key_col, key_vigenere):
     '''
     For encrypting plaintext with Super Encryption (Vigenere Standard + Transposition)
     '''
     #padding dulu sama special character di akhir if len(plaintext) is not divisible by k
+    while(len(plaintext) % key_col != 0):
+      plaintext += SPECIAL_CHAR
     temp_ciphertext = classic.vigenere.encrypt(plaintext, key_vigenere)
     table_transposition = [temp_ciphertext[i:i+key_col] for i in range(0,len(plaintext),key_col)]
     ciphertext = ""
