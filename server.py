@@ -187,6 +187,12 @@ def view_affine_result():
     msg = classic.util.alphabetify(request.form["message"])
     key_m = int(request.form["key_m"])
     key_b = int(request.form["key_b"])
+    validation_msg = ""
+
+    key_m_all = [1,3,5,7,9,11,15,17,19,21,23,25]
+    if key_m not in key_m_all:
+        validation_msg = "Invalid value for m. Try another!"
+        return render_template("affine.html", inputtext=msg, key_m=key_m, key_b=key_b, validate=validation_msg)
 
     if request.form["act"] == "enc":
         result = classic.affine.encrypt(msg, key_m, key_b)
@@ -203,7 +209,7 @@ def view_affine_result():
         f.close()
         return send_file(f_path, as_attachment=True)
 
-    return render_template("affine.html", result=result, inputtext=msg, key_m=key_m, key_b=key_b)
+    return render_template("affine.html", result=result, inputtext=msg, key_m=key_m, key_b=key_b, validation=validation_msg)
 
 @app.route('/hill', methods=['POST'])
 def view_hill_result():
