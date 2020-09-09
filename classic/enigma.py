@@ -69,8 +69,9 @@ def encrypt(plaintext, rotor_index, reflector, plugboard, ring, position):
     for i in alphabet:
       plugboard_dict[i] = i
     for i in plugboard_list:
-      plugboard_dict[i[0]] = i[1]
-      plugboard_dict[i[1]] = i[0]
+      if(len(i) == 2):
+        plugboard_dict[i[0]] = i[1]
+        plugboard_dict[i[1]] = i[0]
 
 
     #Convert letter by letter in the plaintext
